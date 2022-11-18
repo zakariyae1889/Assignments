@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='CSS/bootstrap.min.css')}}">
+</head>
+<body>
+    <div class="container mt-5 ">
+        <div class="card" style="width: 100% ; ">
+          <div class="card-head">
+            <h1 class="text-center text-success">AssignmentsTracker</h1>
+          </div>
+          
+            <div class="card-body">
+              <li class="list-group-item active" aria-current="true"><h4 class="text-center text-light fs-4">Assignments</h4></li>
+              {%for item in data1%}
+              <div class="list-group">
+                <div  class="list-group-item list-group-item-action">
+                  <div class="d-flex w-100 justify-content-between">
+                    
+                    <h5 class="mb-1 text-primary">{{item.1}}</h5>
+                    <a href=" /DeleteAssignments/{{item.0}}" style="text-decoration:none">❌</a>
+                  </div>
+                  <small class="mb-1 text-success">{{item.2}}</small>
+                  
+                </div>
+              </div>
+              {%endfor%}
+             
+              
+               
+                    
+                    
+                  
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h4 style=" font-size:30px ;color:darkorange" class="text-center">AddAssignments</h4>
+                </div>
+            </div>
+            <hr>
+            <br>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    
+                    {% for category, message in messages %}
+                    {%if category=="Successfully" %}
+                    
+                     <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{message}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                     {%endif%}
+                     
+                    {% endfor %}
+                    
+                {% endif %}
+                {% endwith %}
+            <form action="/AddAssignments" method="POST">
+                <div class="form-group">
+                          
+                            <select name="CourseName" id="CourseID" class="form-control" required>
+                              {% for item in data %}
+                              <option value="{{item.0}}">{{item.1}}</option>
+                            {% endfor %}
+                            </select>
+                          
+                        </div>
+                        <div class="form-group">
+                          
+                          <input type="text" class="form-control" id="exampleInputPassword1"  required name="Description">
+                        </div>
+                       
+                        <button type="submit" class="btn btn-primary form-control">Add</button>
+                      </form>
+                        <br>
+                        
+                      <div class="text-center">
+                        <a href="/Course" class="text-center " style=" font-size:30px ;color:crimson">Views/EditCoures</a>
+                      </div>
+                      <br>
+                      
+                </div>
+         
+          
+    </div>
+    <script src="{{url_for('static', filename='JS/jquery.slim.min.js')}}"></script>
+    <script src="{{url_for('static', filename='JS/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static', filename='JS/popper.min.js')}}"></script>
+    <script src="{{url_for('static', filename='JS/main.js')}}"></script>
+</body>
+</html>
